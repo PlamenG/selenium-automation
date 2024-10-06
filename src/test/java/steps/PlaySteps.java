@@ -1,13 +1,16 @@
 package steps;
 
+import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.LuckyBanditSports;
 import requests.Balance;
 import setup.BrowserManager;
 import setup.ChromeBrowserManager;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.util.List;
 
 public class PlaySteps {
 
@@ -24,7 +27,7 @@ public class PlaySteps {
     }
 
     @Given("browser is opened")
-    public void browser_is_opened() throws MalformedURLException {
+    public void browser_is_opened() throws IOException {
         luckyBanditSports.navigateToSports();
         luckyBanditSports.loginUser("tu_plamen", "Pass112#");
         if(luckyBanditSports.isSportsBookModalWrapperDisplayed()){
@@ -34,7 +37,10 @@ public class PlaySteps {
         var memberBalance = luckyBanditSports.getMemberBalance();
 
         var balance = new Balance(chromeBrowserManager.getDriver());
-        var api = balance.getMemberBalance();
-        var sdad = "asdas";
+        String apiResponse = balance.getMemberBalance();
+
+        List<String> memberBalance2 = JsonPath.read(apiResponse, "$..info[?(@.key=='balance')].['raw_amount']");
+
+        Assert.assertEquals(memberBalance, Float.parseFloat(memberBalance2.get(0)), "UI member balance is different from API value");
     }
 }

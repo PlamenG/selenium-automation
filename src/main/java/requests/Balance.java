@@ -1,5 +1,7 @@
 package requests;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.http.HttpClient;
@@ -7,6 +9,8 @@ import org.openqa.selenium.remote.http.HttpMethod;
 import org.openqa.selenium.remote.http.HttpRequest;
 import org.openqa.selenium.remote.http.HttpResponse;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -17,7 +21,7 @@ public class Balance {
         this.driver = driver;
     }
 
-    public String getMemberBalance() throws MalformedURLException {
+    public String getMemberBalance() throws IOException {
         URL getMemberBalanceUrl = new URL("https://luckybandit.club.test-delasport.com/en/euro/operation/getMemberBalance");
         HttpRequest request = new HttpRequest(HttpMethod.POST,"https://luckybandit.club.test-delasport.com/en/euro/operation/getMemberBalance");
 
@@ -54,7 +58,8 @@ public class Balance {
 
         HttpClient client = HttpClient.Factory.createDefault().createClient(getMemberBalanceUrl);
         HttpResponse response = client.execute(request);
-        return  response.getContent().toString();
+        return CharStreams.toString(new InputStreamReader(
+                response.getContent().get(), Charsets.UTF_8));
     }
 
 }

@@ -20,6 +20,8 @@
         <jackson-databind.version>2.18.0</jackson-databind.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <owner.version>1.0.12</owner.version>
+        <json.version>20240303</json.version>
+        <json-path.version>2.9.0</json-path.version>
     </properties>
 
     <build>
@@ -88,7 +90,17 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
-            <version>7.19.0</version>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${json-path.version}</version>
         </dependency>
     </dependencies>
 </project>
