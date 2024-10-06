@@ -17,6 +17,7 @@ public class LuckyBanditSports {
     private final By submitLoginLocator = By.cssSelector("div.modal-action-bar button[type='submit']");
     private final By sportsBookModalWrapperLocator = By.id("sportsbookModal");
     private final By sportsBookModalCloseButtonLocator = By.cssSelector("#sportsbookModal button[aria-label='Close']");
+    private final By userPersonalSportCasinoBalancesLocator = By.cssSelector("li.user-balance-item");
 
     public LuckyBanditSports(WebDriver driver){
         this.driver = driver;
@@ -56,5 +57,18 @@ public class LuckyBanditSports {
 
     public void closeSportsBookModal(){
         getElement(sportsBookModalCloseButtonLocator).click();
+    }
+
+    public float getMemberBalance(){
+        List<WebElement> balances = getElements(userPersonalSportCasinoBalancesLocator);
+        String memberBalance = "";
+        for(WebElement balance : balances){
+            var text = balance.getText();
+            if(balance.getText().contains("BALANCE")){
+                memberBalance = balance.getText();
+            }
+        }
+
+        return Float.parseFloat(memberBalance.replaceAll("[^\\d.]+|\\.(?!\\d)", "")) ;
     }
 }

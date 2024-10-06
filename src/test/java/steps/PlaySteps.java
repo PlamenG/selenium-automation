@@ -23,14 +23,13 @@ public class PlaySteps {
 
     @Given("browser is opened")
     public void browser_is_opened() {
-        // Write code here that turns the phrase above into concrete actions
         luckyBanditSports.navigateToSports();
         luckyBanditSports.loginUser("tu_plamen", "Pass112#");
         if(luckyBanditSports.isSportsBookModalWrapperDisplayed()){
             luckyBanditSports.closeSportsBookModal();
         }
 
-
+        var memberBalance = luckyBanditSports.getMemberBalance();
         var sdad = "asdas";
     }
 }
