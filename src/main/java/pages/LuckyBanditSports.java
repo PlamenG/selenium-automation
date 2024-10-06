@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class LuckyBanditSports {
     private final WebDriver driver;
@@ -14,6 +15,8 @@ public class LuckyBanditSports {
     private final By enterUserLocator = By.cssSelector("input[id='login_form[username]']");
     private final By enterPassLocator = By.cssSelector("input[id='login-modal-password-input']");
     private final By submitLoginLocator = By.cssSelector("div.modal-action-bar button[type='submit']");
+    private final By sportsBookModalWrapperLocator = By.id("sportsbookModal");
+    private final By sportsBookModalCloseButtonLocator = By.cssSelector("#sportsbookModal button[aria-label='Close']");
 
     public LuckyBanditSports(WebDriver driver){
         this.driver = driver;
@@ -35,5 +38,23 @@ public class LuckyBanditSports {
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(d -> element.isDisplayed() && element.isEnabled());
         return element;
+    }
+
+    public List<WebElement> getElements(By locator){
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(d -> !driver.findElements(locator).isEmpty());
+        List<WebElement> elements = driver.findElements(locator);
+        for (WebElement el : elements){
+            wait.until(d -> el.isDisplayed() && el.isEnabled());
+        }
+        return elements;
+    }
+
+    public Boolean isSportsBookModalWrapperDisplayed(){
+        return !getElements(sportsBookModalWrapperLocator).isEmpty();
+    }
+
+    public void closeSportsBookModal(){
+        getElement(sportsBookModalCloseButtonLocator).click();
     }
 }

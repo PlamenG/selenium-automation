@@ -11,13 +11,12 @@ public class PlaySteps {
 
     BrowserManager manager;
     private ChromeBrowserManager chromeBrowserManager;
-    private WebDriver driver;
-    private LuckyBanditSports luckyBanditSports;
+    private final LuckyBanditSports luckyBanditSports;
 
     public PlaySteps(BrowserManager manager, ChromeBrowserManager chromeBrowserManager){
         this.manager = manager;
         this.chromeBrowserManager = chromeBrowserManager;
-        this.driver = chromeBrowserManager.getDriver();
+        WebDriver driver = chromeBrowserManager.getDriver();
 
         this.luckyBanditSports = new LuckyBanditSports(driver);
     }
@@ -27,6 +26,11 @@ public class PlaySteps {
         // Write code here that turns the phrase above into concrete actions
         luckyBanditSports.navigateToSports();
         luckyBanditSports.loginUser("tu_plamen", "Pass112#");
+        if(luckyBanditSports.isSportsBookModalWrapperDisplayed()){
+            luckyBanditSports.closeSportsBookModal();
+        }
+
+
         var sdad = "asdas";
     }
 }
