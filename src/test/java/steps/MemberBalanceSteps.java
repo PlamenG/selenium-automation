@@ -16,7 +16,7 @@ import java.util.List;
 public class MemberBalanceSteps {
 
     BrowserManager manager;
-    private ChromeBrowserManager chromeBrowserManager;
+    private final ChromeBrowserManager chromeBrowserManager;
     private final LuckyBanditSports luckyBanditSports;
 
     public MemberBalanceSteps(BrowserManager manager, ChromeBrowserManager chromeBrowserManager){
