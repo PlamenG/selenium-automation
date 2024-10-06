@@ -5,14 +5,15 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 
 public class Hooks extends BaseSteps {
+    private WebDriver driver;
 
     @Before()
     public void startChrome() {
-        WebDriver dr = getChromeBrowserManager().getDriver();
+        driver = getChromeBrowserManager().getDriver();
     }
 
     @After()
     public void cleanUp() {
-        getChromeBrowserManager().closeBrowser();
+        driver.close();
     }
 }

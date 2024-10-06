@@ -1,6 +1,7 @@
 package steps;
 
 import org.picocontainer.annotations.Inject;
+import pages.LuckyBanditSports;
 import setup.ChromeBrowserManager;
 
 public class BaseSteps {

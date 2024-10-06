@@ -2,6 +2,7 @@ package setup;
 
 import io.cucumber.core.backend.ObjectFactory;
 import io.cucumber.picocontainer.PicoFactory;
+import pages.LuckyBanditSports;
 
 public class PicoDependencyInjector implements ObjectFactory {
     private final PicoFactory delegate = new PicoFactory();
