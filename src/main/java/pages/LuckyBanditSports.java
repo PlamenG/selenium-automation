@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Wait;
@@ -52,7 +53,11 @@ public class LuckyBanditSports {
     }
 
     public Boolean isSportsBookModalWrapperDisplayed(){
-        return !getElements(sportsBookModalWrapperLocator).isEmpty();
+        try{
+            return !getElements(sportsBookModalWrapperLocator).isEmpty();
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void closeSportsBookModal(){
